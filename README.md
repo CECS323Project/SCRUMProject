@@ -1,6 +1,6 @@
 # SCRUMProject
 Introduction to database fundamentals group project
-
+[Progess so far](https://github.com/TeamBearsharks/SCRUMProject/milestones) | [Issues to be claimed](https://github.com/TeamBearsharks/SCRUMProject/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22+no%3Aassignee) | [Contribution Graph](https://github.com/TeamBearsharks/SCRUMProject/network)
 ## Development plan
 *  Create java project first
     * Should have all menus and options possible for the scope of the project
