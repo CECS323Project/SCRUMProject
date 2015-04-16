@@ -3,6 +3,9 @@ import java.util.Scanner;
 public class SCRUMMenus 
 {
 	private Scanner userIn = new Scanner(System.in);
+	private Sprints sprints = new Sprints();
+	private Projects projects = new Projects();
+	private Members members = new Members();
 	SCRUMMenus(){}
 	
 	public void mainMenuLoop()
@@ -59,24 +62,21 @@ public class SCRUMMenus
 			switch(selection)
 			{
 			case 1:
-				again = false;
+				sprints.showAll();
 				break;
 			case 2:
-				again = false;
+				sprints.showPast();
 				break;
 			case 3:
-				again = false;
+				sprints.showRange();
 				break;
 			case 4:
-				again = false;
+				sprints.createStory();
 				break;
 			case 5:
-				again = false;
+				sprints.modifyStory();
 				break;
 			case 6:
-				again = false;
-				break;
-			case 7:
 				again = false;
 				break;
 			default:
@@ -100,22 +100,22 @@ public class SCRUMMenus
 			switch(selection)
 			{
 			case 1:
-				again = false;
+				projects.showAll();
 				break;
 			case 2:
-				again = false;
+				projects.showPast();
 				break;
 			case 3:
-				again = false;
+				projects.showRange();
 				break;
 			case 4:
-				again = false;
+				projects.assignTeam();
 				break;
 			case 5:
-				again = false;
+				projects.modifyProject();
 				break;
 			case 6:
-				again = false;
+				projects.createProject();
 				break;
 			case 7:
 				again = false;
@@ -141,24 +141,30 @@ public class SCRUMMenus
 			switch(selection)
 			{
 			case 1:
-				again = false;
+				members.showAll("Employees");
 				break;
 			case 2:
-				again = false;
+				members.showAll("Stakeholders");
 				break;
 			case 3:
-				again = false;
+				members.showAssignedEmployees();
 				break;
 			case 4:
-				again = false;
+				members.showScrumTeam();
 				break;
 			case 5:
-				again = false;
+				members.addEmployee();
 				break;
 			case 6:
-				again = false;
+				members.modifyEmployee();
 				break;
 			case 7:
+				members.addStakeholder();
+				break;
+			case 8:
+				members.modifyStakeholder();
+				break;
+			case 9:
 				again = false;
 				break;
 			default:
@@ -196,8 +202,7 @@ public class SCRUMMenus
 		System.out.println("5. Select a sprint to modify an existing story");
 		System.out.println("6. Return to main menu");
 	}
-	
-	
+
 	public void displayProjects()
 	{
 		System.out.println("Projects\n");
