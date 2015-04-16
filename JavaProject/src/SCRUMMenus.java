@@ -1,0 +1,227 @@
+import java.util.Scanner;
+
+public class SCRUMMenus 
+{
+	private Scanner userIn = new Scanner(System.in);
+	SCRUMMenus(){}
+	
+	public void mainMenuLoop()
+	{
+		int selection;
+		boolean again = true;
+		
+		while(again)
+		{
+			this.displayMain();
+			System.out.println("\n\tWhat would you like to do?");
+			selection = userIn.nextInt();
+			
+			switch(selection)
+			{
+			case 1:
+				this.sprintMenuLoop();
+				break;
+			case 2:
+				this.projectsMenuLoop();
+				break;
+			case 3:
+				this.membersMenuLoop();
+				break;
+			case 4:
+				again = false;
+				this.quit();
+				break;
+			default:
+				again = false;
+				this.quit();
+				break;
+			}
+			
+		}
+	}
+	
+	public void quit() 
+	{
+		System.out.println("Have a SCRUMMY day!");		
+	}
+
+	public void sprintMenuLoop()
+	{
+		int selection;
+		boolean again = true;
+		
+		while(again)
+		{
+			this.displaySprints();
+			System.out.println("\n\tWhat would you like to do?");
+			selection = userIn.nextInt();
+			
+			switch(selection)
+			{
+			case 1:
+				again = false;
+				break;
+			case 2:
+				again = false;
+				break;
+			case 3:
+				again = false;
+				break;
+			case 4:
+				again = false;
+				break;
+			case 5:
+				again = false;
+				break;
+			case 6:
+				again = false;
+				break;
+			case 7:
+				again = false;
+				break;
+			default:
+				again = false;
+				break;
+			}
+		}
+	}
+	
+	public void projectsMenuLoop()
+	{
+		int selection;
+		boolean again = true;
+		
+		while(again)
+		{
+			this.displayProjects();
+			System.out.println("\n\tWhat would you like to do?");
+			selection = userIn.nextInt();
+			
+			switch(selection)
+			{
+			case 1:
+				again = false;
+				break;
+			case 2:
+				again = false;
+				break;
+			case 3:
+				again = false;
+				break;
+			case 4:
+				again = false;
+				break;
+			case 5:
+				again = false;
+				break;
+			case 6:
+				again = false;
+				break;
+			case 7:
+				again = false;
+				break;
+			default:
+				again = false;
+				break;
+			}
+		}
+	}
+	
+	public void membersMenuLoop()
+	{
+		int selection;
+		boolean again = true;
+		
+		while(again)
+		{
+			this.displayMembers();
+			System.out.println("\n\tWhat would you like to do?");
+			selection = userIn.nextInt();
+			
+			switch(selection)
+			{
+			case 1:
+				again = false;
+				break;
+			case 2:
+				again = false;
+				break;
+			case 3:
+				again = false;
+				break;
+			case 4:
+				again = false;
+				break;
+			case 5:
+				again = false;
+				break;
+			case 6:
+				again = false;
+				break;
+			case 7:
+				again = false;
+				break;
+			default:
+				again = false;
+				break;
+			}
+			
+		}
+	}
+	
+	public void displayMain()
+	{
+		System.out.println("Welcome to SCRUMMY\n");
+		System.out.println("1. Open sprint menu");
+		System.out.println("2. Open Projects menu");
+		System.out.println("3. Open staff menu");
+		System.out.println("4. Exit program");
+		/*
+		System.out.println("4. ");
+		System.out.println("5. ");
+		System.out.println("6. ");
+		System.out.println("7. ");
+		System.out.println("8. ");
+		System.out.println("9. ");
+		*/		
+	}
+	
+	public void displaySprints()
+	{
+		System.out.println("Sprints\n");
+		System.out.println("1. Show all current sprints");
+		System.out.println("2. Show past sprints");
+		System.out.println("3. Show sprints within a range");
+		System.out.println("4. Select a sprint to create a story");
+		System.out.println("5. Select a sprint to modify an existing story");
+		System.out.println("6. Return to main menu");
+	}
+	
+	
+	public void displayProjects()
+	{
+		System.out.println("Projects\n");
+		System.out.println("1. Show all current projects");
+		System.out.println("2. Show past projects");
+		System.out.println("3. Show projects within a range");
+		System.out.println("4. Select a project to assign a team");
+		System.out.println("5. Select a project to modify");
+		System.out.println("6. Create new project");
+		System.out.println("7. Return to main menu");
+	}
+	
+	public void displayMembers()
+	{
+		System.out.println("Staff\n");
+		System.out.println("1. Show all Employees");
+		System.out.println("2. Show all stakeholders");
+		System.out.println("3. Show all employees assigned to a project");
+		System.out.println("4. Show all employees in a certain scrum team");
+		System.out.println("5. Add a new employee");
+		System.out.println("6. Modify an existing employee");
+		System.out.println("7. Add a stakeholder");
+		System.out.println("8. Modify a stakeholder");
+		System.out.println("9. Return to main menu");
+	}
+
+}
