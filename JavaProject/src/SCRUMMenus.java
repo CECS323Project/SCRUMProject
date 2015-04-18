@@ -65,7 +65,7 @@ public class SCRUMMenus
 				sprints.showAll();
 				break;
 			case 2:
-				sprints.showPast();
+				sprints.showPast("04-04-2015");
 				break;
 			case 3:
 				sprints.showRange("04-04-1999","04-04-2015");
