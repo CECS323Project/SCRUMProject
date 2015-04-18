@@ -16,44 +16,48 @@ public class Members
 		}		
 	}
 	
-	private void getEmployees() 
+	public void getEmployees() 
 	{
-		//sql all
+		//sql select * from employees
 	}
 
-	private void getStakeholders() 
+	public void getStakeholders() 
 	{
-		//sql all
+		//sql select * from stakeholders 
 	}
 
 	public void showAssignedEmployees() 
 	{
-		//sql all emps where proj = ?
+		//Need to select a particular project by id
+		//sql select * from employees where proj id = ?
 	}
 
 	public void showScrumTeam() 
 	{
-		//sql all emps where team = ?
+		//Need to be able to select a particular team by id
+		//sql select * from employees where team id= ?
 	}
 
 	public void addEmployee() 
 	{
-		//sql insert emp 
+		//sql insert into employees
 	}
 
 	public void modifyEmployee() 
 	{
-		//sql update emp where name = ?
+		//Need to be able to select a particular employee by id
+		//sql update employee set () values() where employee id = ?
 	}
 
 	public void addStakeholder() 
 	{
-		//sql insert stakeholder
+		//sql insert into stakeholders
 	}
 
 	public void modifyStakeholder() 
 	{
-		//sql update stakeholder where name = ?
+		//Need to be able to select a particular stakeholder by id
+		//sql update stakeholders set () values() where stakeholder id = ?
 	}
 
 }

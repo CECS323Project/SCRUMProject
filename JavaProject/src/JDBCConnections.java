@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.util.Scanner;
+//import java.util.Scanner;
 public class JDBCConnections 
 {
 	private String dbUrl = "";
@@ -7,7 +7,7 @@ public class JDBCConnections
 	private Statement stmnt = null;
 	private String uName = "";
 	private String pass = "";
-	private Scanner userIn = new Scanner(System.in);
+	//private Scanner userIn = new Scanner(System.in);
 	
 	public Connection getConnection()
 	{

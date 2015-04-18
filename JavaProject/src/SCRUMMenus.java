@@ -68,7 +68,7 @@ public class SCRUMMenus
 				sprints.showPast();
 				break;
 			case 3:
-				sprints.showRange();
+				sprints.showRange("04-04-1999","04-04-2015");
 				break;
 			case 4:
 				sprints.createStory();
@@ -106,7 +106,7 @@ public class SCRUMMenus
 				projects.showPast();
 				break;
 			case 3:
-				projects.showRange();
+				projects.showRange("04-04-1999","04-04-2015");
 				break;
 			case 4:
 				projects.assignTeam();

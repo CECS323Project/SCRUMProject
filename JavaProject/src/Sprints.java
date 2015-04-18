@@ -1,4 +1,3 @@
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -13,12 +12,11 @@ public class Sprints
 		this.getAllSprints();
 	}
 
-	private void getAllSprints() 
+	public void getAllSprints() 
 	{
 		try
 		{
 			int k = 0;
-			String sprint;
 			jdbcConn.setStatment(jdbcConn.getConnection());
 			ResultSet results = jdbcConn.getStatment().executeQuery("select * from Sprints");
 			ResultSetMetaData rsmd = results.getMetaData();
@@ -59,21 +57,23 @@ public class Sprints
 
 	public void showPast() 
 	{
-		//sql select * from sprints where date != today
+		//sql select * from sprints where date < today
 	}
 
-	public void showRange() 
+	public void showRange(String x, String y) 
 	{
 		//sql select * from sprints where x < date < y
 	}
 
 	public void createStory() 
 	{
+		//Need to be able to select a particular sprint from the menu
 		//sql insert into Stories where sprintid = ?
 	}
 
 	public void modifyStory() 
 	{
+		//Need to select a particular sprint and a particular story
 		//sql update stories where storyid = ? AND sprint id = ?
 	}
 }

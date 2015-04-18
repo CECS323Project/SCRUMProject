@@ -8,29 +8,31 @@ public class Projects
 		this.getAllProjects();
 	}
 
-	private void getAllProjects() 
+	public void getAllProjects() 
 	{
-		//sql get * from projects
+		//sql select * from projects
 	}
 
 	public void showPast() 
 	{
-		//sql get* from projects where date != today
+		//sql get* from projects where date < today
 	}
 
-	public void showRange() 
+	public void showRange(String x, String y) 
 	{
-		//sql get * from Projects where x < date < y 
+		//sql select * from Projects where x < date < y 
 	}
 
 	public void assignTeam() 
 	{
-		//sql update team set project () 
+		//Need to select a particular team by id
+		//sql update team set project () where team id = ? 
 	}
 
 	public void modifyProject() 
 	{
-		//sql update project where proj name = ?
+		//Need to select a particular project by id
+		//sql update project set () where proj id = ?
 	}
 
 	public void createProject() 
