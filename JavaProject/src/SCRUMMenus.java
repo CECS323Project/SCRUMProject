@@ -1,4 +1,9 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 public class SCRUMMenus 
 {
@@ -6,9 +11,10 @@ public class SCRUMMenus
 	private Sprints sprints = new Sprints();
 	private Projects projects = new Projects();
 	private Members members = new Members();
+	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 	SCRUMMenus(){}
 	
-	public void mainMenuLoop()
+	public void mainMenuLoop() 
 	{
 		int selection;
 		boolean again = true;
@@ -22,7 +28,14 @@ public class SCRUMMenus
 			switch(selection)
 			{
 			case 1:
-				this.sprintMenuLoop();
+				try {
+					this.sprintMenuLoop();
+				} catch (ParseException e) {
+					System.out.println("Not a valid date");
+					
+					
+				}
+				
 				break;
 			case 2:
 				this.projectsMenuLoop();
@@ -48,7 +61,7 @@ public class SCRUMMenus
 		System.out.println("Have a SCRUMMY day!");		
 	}
 
-	public void sprintMenuLoop()
+	public void sprintMenuLoop() throws ParseException
 	{
 		int selection;
 		boolean again = true;
@@ -65,16 +78,45 @@ public class SCRUMMenus
 				sprints.showAll();
 				break;
 			case 2:
-				sprints.showPast("04-04-2015");
+
+				
+				String past;
+				past = JOptionPane.showInputDialog("What date will be the upper limit? (YYYY-MM-DD)");
+				String after = df.format(df.parse(past));
+				sprints.showPast(past);
 				break;
 			case 3:
-				sprints.showRange("04-04-1999","04-04-2015");
+				String lower,upper;
+				lower = JOptionPane.showInputDialog("What is the lower limit? (YYYY-MM-DD)");
+				after = df.format(df.parse(lower));
+				upper= JOptionPane.showInputDialog("What is the upper limit? (YYYY-MM-DD)");
+				after = df.format(df.parse(upper));
+				
+				sprints.showRange(lower,upper);
 				break;
 			case 4:
-				sprints.createStory();
+				int Sprint,Employee;
+				String Goal,Benefit;
+				sprints.showAll();
+				members.showAll("employees");
+				Sprint = Integer.parseInt(JOptionPane.showInputDialog("Which sprint would you like to add to? (SprintID)"));
+				Employee = Integer.parseInt(JOptionPane.showInputDialog("Which employee is this story for? (EmployeeID)"));
+				Goal = JOptionPane.showInputDialog("What is the goal?");
+				Benefit = JOptionPane.showInputDialog("What will the benefit be?");				
+				
+				sprints.createStory(Sprint, Employee, Goal, Benefit);
 				break;
 			case 5:
-				sprints.modifyStory();
+				int sprintID,backlogID,employee;
+				String goal,benefit;
+				sprints.showAll();
+				sprintID = Integer.parseInt(JOptionPane.showInputDialog("Which sprint do you want to modify?(SprintID"));
+				sprints.getAllBacklogs(sprintID);
+				backlogID = Integer.parseInt(JOptionPane.showInputDialog("Which backlog do you want to modify?(BacklogID)"));
+				employee = Integer.parseInt(JOptionPane.showInputDialog("Which employee will be taking this story?(EmployeeID)"));
+				goal = JOptionPane.showInputDialog("What is the new goal?");
+				benefit = JOptionPane.showInputDialog("What is the new benefit?");				
+				sprints.modifyStory(sprintID,backlogID,employee,goal,benefit);
 				break;
 			case 6:
 				again = false;

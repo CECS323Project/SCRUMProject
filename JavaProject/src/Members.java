@@ -1,7 +1,11 @@
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
 
 public class Members 
 {
-
+	private JDBCConnections jdbcConn = new JDBCConnections();
 	public void showAll(String memberType) 
 	{
 		if(memberType.toLowerCase() == "employees")
@@ -18,7 +22,42 @@ public class Members
 	
 	public void getEmployees() 
 	{
-		//sql select * from employees
+		jdbcConn.setStatment(jdbcConn.getConnection());
+		ResultSet results;
+		try {
+			results = jdbcConn.getStatment().executeQuery("select * from Employees;");
+		
+		ResultSetMetaData rsmd = results.getMetaData();
+		int cols = rsmd.getColumnCount();
+		
+		for(int i = 1; i <= cols; i++)
+		{
+			System.out.print(rsmd.getColumnLabel(i)+"\t");
+		}
+		
+		System.out.println("\n-----------------------------------------------------------");
+		
+		while(results.next())
+		{
+			int employeeID = results.getInt(1);
+			String fName = results.getString(2);
+			String lName = results.getString(3);
+			int roleID = results.getInt(4);
+			int teamID = results.getInt(5);
+			
+			System.out.format("%8d %16s %13s %4d %4d",employeeID,fName,lName,roleID,teamID);
+		}
+		
+		System.out.println("\n");
+		results.close();
+		rsmd = null;
+		jdbcConn.getStatment().close();
+		jdbcConn.getConnection().close();
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getStakeholders() 

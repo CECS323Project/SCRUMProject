@@ -1,14 +1,21 @@
 import java.sql.*;
+
+import javax.swing.JOptionPane;
 //import java.util.Scanner;
 public class JDBCConnections 
 {
-	private String dbUrl = "";
+	private String dbUrl = "jdbc:mysql://cecs-db01.coe.csulb.edu:3306/cecs323h18";
 	private Connection conn = null;
 	private Statement stmnt = null;
 	private String uName = "";
 	private String pass = "";
 	//private Scanner userIn = new Scanner(System.in);
 	
+	public JDBCConnections()
+	{
+		uName = JOptionPane.showInputDialog("Please enter the uname");
+		pass = JOptionPane.showInputDialog("Please enter the password");
+	}
 	public Connection getConnection()
 	{
 		try
