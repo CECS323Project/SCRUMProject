@@ -16,7 +16,7 @@ public class SCRUMMenus
 		while(again)
 		{
 			this.displayMain();
-			System.out.println("\n\tWhat would you like to do?");
+			System.out.print("\n\tWhat would you like to do? ");
 			selection = userIn.nextInt();
 			
 			switch(selection)
@@ -135,13 +135,13 @@ public class SCRUMMenus
 		while(again)
 		{
 			this.displayMembers();
-			System.out.println("\n\tWhat would you like to do?");
+			System.out.print("\n\tWhat would you like to do? ");
 			selection = userIn.nextInt();
 			
 			switch(selection)
 			{
 			case 1:
-				members.showAll("Employees");
+				members.showAll("employees");
 				break;
 			case 2:
 				members.showAll("Stakeholders");
