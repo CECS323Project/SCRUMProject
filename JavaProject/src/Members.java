@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Members 
@@ -7,13 +9,11 @@ public class Members
 	
 	public void showAll(String memberType) 
 	{
-		if(memberType.toLowerCase() == "employees")
-		{
+		if(memberType.toLowerCase() == "employees") {
 			System.out.println("Here is a list of all of the employees:\n");
 			this.getEmployees();
 		}
-		else if(memberType.toLowerCase() == "stakeholders")
-		{
+		else if(memberType.toLowerCase() == "stakeholders") {
 			System.out.println("Here is a list of all the stakeholders:\n");
 			this.getStakeholders();
 		}
@@ -103,12 +103,72 @@ public class Members
 	{
 		//Need to select a particular project by id
 		//sql select * from employees where proj id = ?
+		
+		try {
+			jdbcConn.setStatment(jdbcConn.getConnection());
+			ResultSet results = jdbcConn.getStatment().executeQuery("select LName, FName, ProjectName from Employees JOIN Teams ON Employees.TeamID = Teams.TeamID;");		
+			ResultSetMetaData rsmd = results.getMetaData();
+			
+			int numberCols = rsmd.getColumnCount();
+			
+			//print column names
+			for (int i = 1; i <= numberCols; i++) {
+				System.out.print(rsmd.getColumnLabel(i) + "\t");
+			}
+			System.out.println("\n--------------------------------------");
+			
+			while (results.next()) {
+				String FName = results.getString(1);
+				String LName = results.getString(2);
+				String ProjectName = results.getString(3);
+
+				System.out.format("%8s %8s %8s\n",FName,LName,ProjectName);
+			}
+			
+			System.out.println("\n");
+			results.close();
+			rsmd = null;
+			jdbcConn.getStatment().close();
+			
+		}catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
 	}
 
 	public void showScrumTeam() 
 	{
 		//Need to be able to select a particular team by id
 		//sql select * from employees where team id= ?
+		
+		try {
+			jdbcConn.setStatment(jdbcConn.getConnection());
+			ResultSet results = jdbcConn.getStatment().executeQuery("select LName, FName, TeamName from Employees JOIN Teams ON Employees.TeamID = Teams.TeamID;");		
+			ResultSetMetaData rsmd = results.getMetaData();
+			
+			int numberCols = rsmd.getColumnCount();
+			
+			//print column names
+			for (int i = 1; i <= numberCols; i++) {
+				System.out.print(rsmd.getColumnLabel(i) + "\t");
+			}
+			System.out.println("\n--------------------------------------");
+			
+			while (results.next()) {
+				String FName = results.getString(1);
+				String LName = results.getString(2);
+				String ProjectName = results.getString(3);
+
+				System.out.format("%8s %8s %8s\n",FName,LName,ProjectName);
+			}
+			
+			System.out.println("\n");
+			results.close();
+			rsmd = null;
+			jdbcConn.getStatment().close();
+			
+		}catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		}
 	}
 
 	public void addEmployee() 
@@ -156,6 +216,7 @@ public class Members
 			System.out.println("\n");
 			results.close();
 			jdbcConn.getStatment().close();
+			in.close();
 			
 		}catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
