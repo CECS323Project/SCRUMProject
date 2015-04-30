@@ -144,7 +144,7 @@ public class SCRUMMenus
 				members.showAll("employees");
 				break;
 			case 2:
-				members.showAll("Stakeholders");
+				members.showAll("stakeholders");
 				break;
 			case 3:
 				members.showAssignedEmployees();
