@@ -25,7 +25,7 @@ public class Members
 		jdbcConn.setStatment(jdbcConn.getConnection());
 		ResultSet results;
 		try {
-			results = jdbcConn.getStatment().executeQuery("select * from Employees;");
+			results = jdbcConn.getStatment().executeQuery("select EmployeeID,concat(lName,', ',fName) AS 'Last, First',Role,TeamName from Employees natural join Teams natural join Roles;");
 		
 		ResultSetMetaData rsmd = results.getMetaData();
 		int cols = rsmd.getColumnCount();
@@ -40,12 +40,12 @@ public class Members
 		while(results.next())
 		{
 			int employeeID = results.getInt(1);
-			String fName = results.getString(2);
-			String lName = results.getString(3);
-			int roleID = results.getInt(4);
-			int teamID = results.getInt(5);
+			String employeeName = results.getString(2);
+			String Role = results.getString(3);
+			String TeamName = results.getString(4);
+	
 			
-			System.out.format("%8d %16s %13s %4d %4d\n",employeeID,fName,lName,roleID,teamID);
+			System.out.format("%8d %16s %13s %4s\n",employeeID,employeeName,Role,TeamName);
 		}
 		
 		System.out.println("\n");
