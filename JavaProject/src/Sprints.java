@@ -34,8 +34,9 @@ public class Sprints
 				int backlogID = results.getInt(2);
 				String date = results.getString(3);
 				int teamID = results.getInt(4);
+				String projectName = results.getString(5);
 				
-				System.out.format("%8d %16d %13s %4d",sprintID,backlogID,date,teamID);
+				System.out.format("%8d %16d %13s %4d\n",sprintID,backlogID,date,teamID);
 			}
 			
 			System.out.println("\n");
@@ -53,6 +54,24 @@ public class Sprints
 		
 		//sql select * from sprints
 		
+	}
+	
+	public void insertSprint()
+	{
+		//Need to be able to select a particular sprint from the menu
+		//sql insert into Stories where sprintid = ?
+		try
+		{
+			jdbcConn.setStatment(jdbcConn.getConnection());
+			//jdbcConn.getStatment().executeUpdate("insert into Sprints (,`Date`,`TeamID`) values ("+Date+",'"+TeamID+"');");
+			jdbcConn.getStatment().close();
+			System.out.println("Insert Successful");			
+		}
+		catch(SQLException e)
+		{
+			System.out.println("ERROR");
+			e.printStackTrace();
+		}
 	}
 
 	public void showPast(String inDate) 
@@ -177,14 +196,14 @@ public class Sprints
 		{
 			
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			ResultSet results = jdbcConn.getStatment().executeQuery("select * from Backlogs where sprintID = "+Sprint+";");
+			ResultSet results = jdbcConn.getStatment().executeQuery("select BacklogID,concat(lName,', ',fName) AS 'Last, First',Role,Goal,Benefit from Backlogs natural join Roles natural join Employees where sprintID = "+Sprint+";");
 			ResultSetMetaData rsmd = results.getMetaData();
 			int cols = rsmd.getColumnCount();
 			
-			for(int i = 1; i <= cols; i++)
-			{
-				System.out.print(rsmd.getColumnLabel(i)+"\t");
-			}
+			//for(int i = 1; i <= cols; i++)
+			//{
+			//	System.out.print(rsmd.getColumnLabel(i)+"\t");
+			//}
 			
 			System.out.println("\n-----------------------------------------------------------");
 			
@@ -192,12 +211,12 @@ public class Sprints
 			{
 				
 				int backlogID = results.getInt(1);
-				int employeeID = results.getInt(2);
-				String Goal = results.getString(3);
-				String Benefit = results.getString(4);
-				int sprintID = results.getInt(5);
+				String employeeName = results.getString(2);
+				String Role = results.getString(3);
+				String Goal = results.getString(4);
+				String Benefit = results.getString(5);
 				
-				System.out.format("%d %13d %5s %4s %8d\n",backlogID,employeeID,Goal,Benefit,sprintID);
+				System.out.format("ID:%2d Employee: %10s \n\tAs a(n) %s I want to %s so that %s\n\n",backlogID,employeeName,Role,Goal,Benefit);
 			}
 			
 			System.out.println("\n");

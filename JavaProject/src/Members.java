@@ -45,7 +45,7 @@ public class Members
 			int roleID = results.getInt(4);
 			int teamID = results.getInt(5);
 			
-			System.out.format("%8d %16s %13s %4d %4d",employeeID,fName,lName,roleID,teamID);
+			System.out.format("%8d %16s %13s %4d %4d\n",employeeID,fName,lName,roleID,teamID);
 		}
 		
 		System.out.println("\n");

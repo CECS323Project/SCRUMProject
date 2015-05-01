@@ -75,7 +75,17 @@ public class SCRUMMenus
 			switch(selection)
 			{
 			case 1:
+				int backlogShow = 0;
 				sprints.showAll();
+				System.out.println("Do you want to show the story backlog?\n\t1.)Yes\n\t2.)No");
+				backlogShow = userIn.nextInt();
+				if(backlogShow == 1)
+				{
+					int selectedSprint;
+					System.out.println("Please select a sprint by ID: ");
+					selectedSprint = userIn.nextInt();
+					sprints.getAllBacklogs(selectedSprint);
+				}				
 				break;
 			case 2:
 
