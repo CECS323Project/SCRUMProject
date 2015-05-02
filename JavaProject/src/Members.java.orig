@@ -1,13 +1,22 @@
+<<<<<<< HEAD
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+=======
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Scanner;
 
+>>>>>>> 7383b5c1ad66fdf8e1bb70e229c31d547c55113f
 
 public class Members 
 {
-	private Scanner scan = new Scanner(System.in);
 	private JDBCConnections jdbcConn = new JDBCConnections();
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 7383b5c1ad66fdf8e1bb70e229c31d547c55113f
 	public void showAll(String memberType) 
 	{
 		if(memberType.toLowerCase() == "employees") {
@@ -22,11 +31,12 @@ public class Members
 	
 	public void getEmployees() 
 	{
+<<<<<<< HEAD
 		//SQL: select * from Employees
 			jdbcConn.setStatment(jdbcConn.getConnection());
 			ResultSet results;
 			try {
-				results = jdbcConn.getStatment().executeQuery("select EmployeeID,concat(lName,', ',fName) AS 'Last, First',Role,TeamName from Members natural join Teams natural join Roles;");
+				results = jdbcConn.getStatment().executeQuery("select EmployeeID,concat(lName,', ',fName) AS 'Last, First',Role,TeamName from Employees natural join Teams natural join Roles;");
 			
 			ResultSetMetaData rsmd = results.getMetaData();
 			int cols = rsmd.getColumnCount();
@@ -60,6 +70,44 @@ public class Members
 				e.printStackTrace();
 			}
 
+=======
+		jdbcConn.setStatment(jdbcConn.getConnection());
+		ResultSet results;
+		try {
+			results = jdbcConn.getStatment().executeQuery("select EmployeeID,concat(lName,', ',fName) AS 'Last, First',Role,TeamName from Employees natural join Teams natural join Roles;");
+		
+		ResultSetMetaData rsmd = results.getMetaData();
+		int cols = rsmd.getColumnCount();
+		
+		for(int i = 1; i <= cols; i++)
+		{
+			System.out.print(rsmd.getColumnLabel(i)+"\t");
+		}
+		
+		System.out.println("\n-----------------------------------------------------------");
+		
+		while(results.next())
+		{
+			int employeeID = results.getInt(1);
+			String employeeName = results.getString(2);
+			String Role = results.getString(3);
+			String TeamName = results.getString(4);
+	
+			
+			System.out.format("%8d %16s %13s %4s\n",employeeID,employeeName,Role,TeamName);
+		}
+		
+		System.out.println("\n");
+		results.close();
+		rsmd = null;
+		jdbcConn.getStatment().close();
+		jdbcConn.getConnection().close();
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> 7383b5c1ad66fdf8e1bb70e229c31d547c55113f
 	}
 
 	public void getStakeholders() 
@@ -67,7 +115,7 @@ public class Members
 		//SQL: select * from StakeHolders
 		try {
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			ResultSet results = jdbcConn.getStatment().executeQuery("select * from Members where RoleID = 3 ;");
+			ResultSet results = jdbcConn.getStatment().executeQuery("select * from StakeHolders;");
 			ResultSetMetaData rsmd = results.getMetaData();
 			
 			int numberCols = rsmd.getColumnCount();
@@ -108,7 +156,7 @@ public class Members
 		
 		try {
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			ResultSet results = jdbcConn.getStatment().executeQuery("select LName, FName, ProjectName from Members JOIN Teams ON Members.TeamID = Teams.TeamID;");		
+			ResultSet results = jdbcConn.getStatment().executeQuery("select LName, FName, ProjectName from Employees JOIN Teams ON Employees.TeamID = Teams.TeamID;");		
 			ResultSetMetaData rsmd = results.getMetaData();
 			
 			int numberCols = rsmd.getColumnCount();
@@ -144,7 +192,7 @@ public class Members
 		
 		try {
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			ResultSet results = jdbcConn.getStatment().executeQuery("select LName, FName, TeamName from Members JOIN Teams ON Members.TeamID = Teams.TeamID;");		
+			ResultSet results = jdbcConn.getStatment().executeQuery("select LName, FName, TeamName from Employees JOIN Teams ON Employees.TeamID = Teams.TeamID;");		
 			ResultSetMetaData rsmd = results.getMetaData();
 			
 			int numberCols = rsmd.getColumnCount();
@@ -175,53 +223,54 @@ public class Members
 
 	public void addEmployee() 
 	{
-		jdbcConn.setStatment(jdbcConn.getConnection());
-		ResultSet results;
+		//temporary scanner
+		Scanner in = new Scanner(System.in);
+		
+		//gather new employee information
+		System.out.print("\nLast name: ");
+		String lName = in.next();
+		System.out.print("First name: ");
+		String fName = in.next();
+		
+		//gather new employee role
+		System.out.println("\n1. Software Engineer");
+		System.out.println("2. Owner");
+		System.out.println("3. Salesperson");
+		System.out.print("Employee role: ");
+		int roleID = in.nextInt();
+		if (roleID == 3)
+			roleID = 4;
+		
+		//SQL: insert into Employees
 		try {
-			results = jdbcConn.getStatment().executeQuery("select TeamName, TeamID from Teams ;");
-			ResultSetMetaData rsmd = results.getMetaData();
-			int cols = rsmd.getColumnCount();
+			//gather new employee team
+			jdbcConn.setStatment(jdbcConn.getConnection());
+			ResultSet results = jdbcConn.getStatment().executeQuery("select * from Teams;");
 			
-			for(int i = 1; i <= cols; i++)
-			{
-				System.out.print(rsmd.getColumnLabel(i)+"\t");
+			int i = 1;
+			System.out.print("\n");
+			while (results.next()) {
+				String TeamName = results.getString(2);
+				
+				System.out.println(i + ". " + TeamName);
 			}
-			System.out.println("\n");
-			while(results.next())
-			{
-				String TeamName = results.getString(1);
-				int TeamID = results.getInt(2);
-				System.out.format("%8s %13d\n",TeamName, TeamID);
-			}
+			
+			System.out.print("\nAdd to team: ");
+			int teamID = in.nextInt();
+			
+			//output
+			results = jdbcConn.getStatment().executeQuery("select count(*) from Employees");
+			jdbcConn.getStatment().execute("insert into Employees values ('" + results + "','" +
+					fName + "','" + lName + "','" + roleID + "','" + teamID + "');");
+			
 			System.out.println("\n");
 			results.close();
-			rsmd = null;
 			jdbcConn.getStatment().close();
-			jdbcConn.getConnection().close();
-			System.out.println("\n-----------------------------------------------------------");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			in.close();
+			
+		}catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
 		}
-		System.out.println("Enter members first name:");
-		String fName = scan.nextLine();
-		System.out.println("Enter members last name:");
-		String lName = scan.nextLine();
-		int RoleID = 1;
-		System.out.println("Enter members Team id:");
-		int teamID = scan.nextInt();
-		jdbcConn.setStatment(jdbcConn.getConnection());
-		try {
-			jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
-					+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
-							+ ",'"+RoleID+"','"+teamID+"')");
-			System.out.println("Employee added");
-			jdbcConn.getStatment().close();
-			jdbcConn.getConnection().close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
 	}
 
 	public void modifyEmployee() 

@@ -1,4 +1,6 @@
 import java.sql.*;
+
+import javax.swing.JOptionPane;
 //import java.util.Scanner;
 public class JDBCConnections 
 {
@@ -9,6 +11,11 @@ public class JDBCConnections
 	private String pass = "aTubih";
 	//private Scanner userIn = new Scanner(System.in);
 	
+	public JDBCConnections()
+	{
+		//uName = JOptionPane.showInputDialog("Please enter the uname");
+		//pass = JOptionPane.showInputDialog("Please enter the password");
+	}
 	public Connection getConnection()
 	{
 		try
