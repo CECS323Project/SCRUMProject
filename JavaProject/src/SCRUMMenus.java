@@ -1,3 +1,8 @@
+/**
+ * Main menu structure
+ * @author Russell Tan
+ */
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +13,6 @@ import javax.swing.JOptionPane;
 public class SCRUMMenus {
   private Scanner userIn = new Scanner(System.in);
   private Sprints sprints = new Sprints();
-  private Projects projects = new Projects();
   private Members members = new Members();
   private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
@@ -29,18 +33,12 @@ public class SCRUMMenus {
             this.sprintMenuLoop();
           } catch (ParseException e) {
             System.out.println("Not a valid date");
-
-
           }
-
           break;
         case 2:
-          this.projectsMenuLoop();
-          break;
-        case 3:
           this.membersMenuLoop();
           break;
-        case 4:
+        case 3:
           again = false;
           this.quit();
           break;
@@ -49,7 +47,6 @@ public class SCRUMMenus {
           this.quit();
           break;
       }
-
     }
   }
 
@@ -80,8 +77,6 @@ public class SCRUMMenus {
           }
           break;
         case 2:
-
-
           String past;
           past = JOptionPane.showInputDialog("What date will be the upper limit? (YYYY-MM-DD)");
           String after = df.format(df.parse(past));
@@ -189,44 +184,6 @@ public class SCRUMMenus {
     }
   }
 
-  public void projectsMenuLoop() {
-    int selection;
-    boolean again = true;
-
-    while (again) {
-      this.displayProjects();
-      System.out.println("\n\tWhat would you like to do?");
-      selection = userIn.nextInt();
-
-      switch (selection) {
-        case 1:
-          projects.showAll();
-          break;
-        case 2:
-          projects.showPast();
-          break;
-        case 3:
-          projects.showRange("04-04-1999", "04-04-2015");
-          break;
-        case 4:
-          projects.assignTeam();
-          break;
-        case 5:
-          projects.modifyProject();
-          break;
-        case 6:
-          projects.createProject();
-          break;
-        case 7:
-          again = false;
-          break;
-        default:
-          again = false;
-          break;
-      }
-    }
-  }
-
   public void membersMenuLoop() {
     int selection;
     boolean again = true;
@@ -308,5 +265,4 @@ public class SCRUMMenus {
     System.out.println("6. Modify an existing member");
     System.out.println("7. Return to main menu");
   }
-
 }
