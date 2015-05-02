@@ -227,9 +227,8 @@ public class SCRUMMenus {
   public void displayMain() {
     System.out.println("Welcome to SCRUMMY\n");
     System.out.println("1. Open sprint menu");
-    System.out.println("2. Open Projects menu");
-    System.out.println("3. Open staff menu");
-    System.out.println("4. Exit program");
+    System.out.println("2. Open staff menu");
+    System.out.println("3. Exit program");
   }
 
   public void displaySprints() {

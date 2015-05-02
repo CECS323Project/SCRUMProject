@@ -1,3 +1,7 @@
+/**
+ * @author Russell Tan
+ */
+
 import java.sql.*;
 
 import javax.swing.JOptionPane;
