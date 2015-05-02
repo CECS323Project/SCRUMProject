@@ -177,51 +177,141 @@ public class Members
 	{
 		jdbcConn.setStatment(jdbcConn.getConnection());
 		ResultSet results;
-		try {
-			results = jdbcConn.getStatment().executeQuery("select TeamName, TeamID from Teams ;");
-			ResultSetMetaData rsmd = results.getMetaData();
-			int cols = rsmd.getColumnCount();
-			
-			for(int i = 1; i <= cols; i++)
-			{
-				System.out.print(rsmd.getColumnLabel(i)+"\t");
-			}
-			System.out.println("\n");
-			while(results.next())
-			{
-				String TeamName = results.getString(1);
-				int TeamID = results.getInt(2);
-				System.out.format("%8s %13d\n",TeamName, TeamID);
-			}
-			System.out.println("\n");
-			results.close();
-			rsmd = null;
-			jdbcConn.getStatment().close();
-			jdbcConn.getConnection().close();
-			System.out.println("\n-----------------------------------------------------------");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		System.out.println("Enter members first name:");
 		String fName = scan.nextLine();
 		System.out.println("Enter members last name:");
 		String lName = scan.nextLine();
-		int RoleID = 1;
-		System.out.println("Enter members Team id:");
-		int teamID = scan.nextInt();
-		jdbcConn.setStatment(jdbcConn.getConnection());
-		try {
-			jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
-					+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
-							+ ",'"+RoleID+"','"+teamID+"')");
-			System.out.println("Employee added");
-			jdbcConn.getStatment().close();
-			jdbcConn.getConnection().close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		System.out.println("Enter role option");
+		System.out.println("1. Employeee");
+		System.out.println("2. Owner");
+		System.out.println("3. Stakeholder");
+		int role = scan.nextInt();
+		if(role == 1){
+			try {
+				results = jdbcConn.getStatment().executeQuery("select TeamName, TeamID from Teams ;");
+				ResultSetMetaData rsmd = results.getMetaData();
+				int cols = rsmd.getColumnCount();
+				
+				for(int i = 1; i <= cols; i++)
+				{
+					System.out.print(rsmd.getColumnLabel(i)+"\t");
+				}
+				System.out.println("\n");
+				while(results.next())
+				{
+					String TeamName = results.getString(1);
+					int TeamID = results.getInt(2);
+					System.out.format("%8s %13d\n",TeamName, TeamID);
+				}
+				System.out.println("\n");
+				results.close();
+				rsmd = null;
+				jdbcConn.getStatment().close();
+				jdbcConn.getConnection().close();
+				System.out.println("\n-----------------------------------------------------------");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			jdbcConn.setStatment(jdbcConn.getConnection());
+			System.out.println("Enter team ID");
+			int teamID = scan.nextInt();
+			try {
+				jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
+						+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
+								+ ",'"+role+"','"+teamID+"')");
+				System.out.println("Employee added");
+				jdbcConn.getStatment().close();
+				jdbcConn.getConnection().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+		if(role == 2){
+			try {
+				results = jdbcConn.getStatment().executeQuery("select TeamName, TeamID from Teams ;");
+				ResultSetMetaData rsmd = results.getMetaData();
+				int cols = rsmd.getColumnCount();
+				
+				for(int i = 1; i <= cols; i++)
+				{
+					System.out.print(rsmd.getColumnLabel(i)+"\t");
+				}
+				System.out.println("\n");
+				while(results.next())
+				{
+					String TeamName = results.getString(1);
+					int TeamID = results.getInt(2);
+					System.out.format("%8s %13d\n",TeamName, TeamID);
+				}
+				System.out.println("\n");
+				results.close();
+				rsmd = null;
+				jdbcConn.getStatment().close();
+				jdbcConn.getConnection().close();
+				System.out.println("\n-----------------------------------------------------------");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			jdbcConn.setStatment(jdbcConn.getConnection());
+			System.out.println("Enter team ID");
+			int teamID = scan.nextInt();
+			try {
+				jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
+						+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
+								+ ",'"+role+"','"+teamID+"')");
+				System.out.println("Employee added");
+				jdbcConn.getStatment().close();
+				jdbcConn.getConnection().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(role == 3){
+			try {
+				results = jdbcConn.getStatment().executeQuery("select TeamName, TeamID from Teams ;");
+				ResultSetMetaData rsmd = results.getMetaData();
+				int cols = rsmd.getColumnCount();
+				
+				for(int i = 1; i <= cols; i++)
+				{
+					System.out.print(rsmd.getColumnLabel(i)+"\t");
+				}
+				System.out.println("\n");
+				while(results.next())
+				{
+					String TeamName = results.getString(1);
+					int TeamID = results.getInt(2);
+					System.out.format("%8s %13d\n",TeamName, TeamID);
+				}
+				System.out.println("\n");
+				results.close();
+				rsmd = null;
+				jdbcConn.getStatment().close();
+				jdbcConn.getConnection().close();
+				System.out.println("\n-----------------------------------------------------------");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			jdbcConn.setStatment(jdbcConn.getConnection());
+			System.out.println("Enter team ID");
+			int teamID = scan.nextInt();
+			try {
+				jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
+						+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
+								+ ",'"+role+"','"+teamID+"')");
+				System.out.println("Employee added");
+				jdbcConn.getStatment().close();
+				jdbcConn.getConnection().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void addStakeholder() 

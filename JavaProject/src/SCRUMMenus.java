@@ -9,7 +9,6 @@ public class SCRUMMenus
 {
 	private Scanner userIn = new Scanner(System.in);
 	private Sprints sprints = new Sprints();
-	private Projects projects = new Projects();
 	private Members members = new Members();
 	private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 	SCRUMMenus(){}
@@ -38,9 +37,6 @@ public class SCRUMMenus
 				
 				break;
 			case 2:
-				this.projectsMenuLoop();
-				break;
-			case 3:
 				this.membersMenuLoop();
 				break;
 			case 4:
@@ -175,47 +171,6 @@ public class SCRUMMenus
 		}
 	}
 	
-	public void projectsMenuLoop()
-	{
-		int selection;
-		boolean again = true;
-		
-		while(again)
-		{
-			this.displayProjects();
-			System.out.println("\n\tWhat would you like to do?");
-			selection = userIn.nextInt();
-			
-			switch(selection)
-			{
-			case 1:
-				projects.showAll();
-				break;
-			case 2:
-				projects.showPast();
-				break;
-			case 3:
-				projects.showRange("04-04-1999","04-04-2015");
-				break;
-			case 4:
-				projects.assignTeam();
-				break;
-			case 5:
-				projects.modifyProject();
-				break;
-			case 6:
-				projects.createProject();
-				break;
-			case 7:
-				again = false;
-				break;
-			default:
-				again = false;
-				break;
-			}
-		}
-	}
-	
 	public void membersMenuLoop()
 	{
 		int selection;
@@ -262,17 +217,8 @@ public class SCRUMMenus
 	{
 		System.out.println("Welcome to SCRUMMY\n");
 		System.out.println("1. Open sprint menu");
-		System.out.println("2. Open Projects menu");
-		System.out.println("3. Open staff menu");
-		System.out.println("4. Exit program");
-		/*
-		System.out.println("4. ");
-		System.out.println("5. ");
-		System.out.println("6. ");
-		System.out.println("7. ");
-		System.out.println("8. ");
-		System.out.println("9. ");
-		*/		
+		System.out.println("2. Open staff menu");
+		System.out.println("3. Exit program");	
 	}
 	
 	public void displaySprints()
@@ -286,18 +232,6 @@ public class SCRUMMenus
 		System.out.println("6. Create a sprint");
 		System.out.println("7. Modify a sprints status");
 		System.out.println("8. Return to main menu");
-	}
-
-	public void displayProjects()
-	{
-		System.out.println("Projects\n");
-		System.out.println("1. Show all current projects");
-		System.out.println("2. Show past projects");
-		System.out.println("3. Show projects within a range");
-		System.out.println("4. Select a project to assign a team");
-		System.out.println("5. Select a project to modify");
-		System.out.println("6. Create new project");
-		System.out.println("7. Return to main menu");
 	}
 	
 	public void displayMembers()
