@@ -22,42 +22,43 @@ public class Members
 	public void getEmployees() 
 	{
 		//SQL: select * from Employees
-		try {
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			ResultSet results = jdbcConn.getStatment().executeQuery("select * from Employees;");
+			ResultSet results;
+			try {
+				results = jdbcConn.getStatment().executeQuery("select EmployeeID,concat(lName,', ',fName) AS 'Last, First',Role,TeamName from Employees natural join Teams natural join Roles;");
+			
 			ResultSetMetaData rsmd = results.getMetaData();
+			int cols = rsmd.getColumnCount();
 			
-			int numberCols = rsmd.getColumnCount();
-			
-			//print column names
-			for (int i = 1; i <= numberCols; i++) {
-				if (i == 2)
-					System.out.print(rsmd.getColumnLabel(3) + "\t");
-				else if (i == 3)
-					System.out.print(rsmd.getColumnLabel(2) + "\t");
-				else
-					System.out.print(rsmd.getColumnLabel(i) + "\t");
+			for(int i = 1; i <= cols; i++)
+			{
+				System.out.print(rsmd.getColumnLabel(i)+"\t");
 			}
-			System.out.println("\n----------------------------------------------");
 			
-			//print column contents
-			while (results.next()) {
-				String EmployeeID = results.getString(1);
-				String LName = results.getString(3);
-				String FName = results.getString(2);
-				String RoleID = results.getString(4);
-				String TeamID = results.getString(5);
-
-				System.out.format("%8s %8s, %8s %8s %8s\n",EmployeeID,LName,FName,RoleID,TeamID);
+			System.out.println("\n-----------------------------------------------------------");
+			
+			while(results.next())
+			{
+				int employeeID = results.getInt(1);
+				String employeeName = results.getString(2);
+				String Role = results.getString(3);
+				String TeamName = results.getString(4);
+		
+				
+				System.out.format("%8d %16s %13s %4s\n",employeeID,employeeName,Role,TeamName);
 			}
+			
 			System.out.println("\n");
 			results.close();
 			rsmd = null;
 			jdbcConn.getStatment().close();
-			
-		}catch (SQLException sqlExcept) {
-			sqlExcept.printStackTrace();
-		}
+			jdbcConn.getConnection().close();
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 	}
 
 	public void getStakeholders() 
