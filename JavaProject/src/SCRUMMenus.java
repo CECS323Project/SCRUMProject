@@ -245,15 +245,9 @@ public class SCRUMMenus
 				members.addEmployee();
 				break;
 			case 6:
-				members.modifyEmployee();
-				break;
-			case 7:
-				members.addStakeholder();
+				members.modifyMembers();
 				break;
 			case 8:
-				members.modifyStakeholder();
-				break;
-			case 9:
 				again = false;
 				break;
 			default:

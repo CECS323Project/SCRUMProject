@@ -224,21 +224,112 @@ public class Members
 		} 
 	}
 
-	public void modifyEmployee() 
-	{
-		//Need to be able to select a particular employee by id
-		//sql update employee set () values() where employee id = ?
-	}
-
 	public void addStakeholder() 
 	{
 		//sql insert into stakeholders
 	}
 
-	public void modifyStakeholder() 
+	public void modifyMembers() 
 	{
 		//Need to be able to select a particular stakeholder by id
 		//sql update stakeholders set () values() where stakeholder id = ?
+		Scanner in = new Scanner(System.in);
+		
+		getEmployees();
+		System.out.print("\nPlease choose an Employee ID: ");
+		int employeeID = in.nextInt();
+		
+		while(true) {
+			getModMenu();
+			System.out.print("What would you like to modify? ");
+			int modOption = in.nextInt();
+			
+			switch(modOption) {
+			case 1:
+				System.out.println("\nPlease insert new information:");
+				System.out.print("First name: ");
+				String newFirstName = in.next();
+				System.out.print("Last name: ");
+				String newLastName = in.next();
+				try {
+					jdbcConn.setStatment(jdbcConn.getConnection());
+					jdbcConn.getStatment().executeUpdate("update Members set FName = '" + newFirstName + "', LName = '" + newLastName + "' where Members.EmployeeID = " + employeeID + ";");
+					jdbcConn.getStatment().close();
+					System.out.println("Update Successful");
+				}catch (SQLException sqlExcept) {
+					sqlExcept.printStackTrace();
+				}
+				break;
+			case 2:
+				getRoleMenu();
+				System.out.print("Please choose a new role: ");
+				int newRoleID = in.nextInt();
+				try {
+					jdbcConn.setStatment(jdbcConn.getConnection());
+					jdbcConn.getStatment().executeUpdate("update Members set RoleID = " + newRoleID + " where Members.EmployeeID = " + employeeID + ";");
+					jdbcConn.getStatment().close();
+					System.out.println("Update Successful");
+				}catch (SQLException sqlExcept) {
+					sqlExcept.printStackTrace();
+				}
+				break;
+			case 3:
+				try {
+					jdbcConn.setStatment(jdbcConn.getConnection());
+					ResultSet results = jdbcConn.getStatment().executeQuery("select TeamID, TeamName from Teams;");		
+					ResultSetMetaData rsmd = results.getMetaData();
+					
+					int numberCols = rsmd.getColumnCount();
+					
+					//print column names
+					for (int i = 1; i <= numberCols; i++) {
+						System.out.print(rsmd.getColumnLabel(i) + "\t");
+					}
+					System.out.println("\n--------------------------------------");
+					
+					while (results.next()) {
+						String teamID = results.getString(1);
+						String teamName = results.getString(2);
+
+						System.out.format("%8s %8s\n",teamID,teamName);
+					}
+					
+					System.out.print("Please choose a new team: ");
+					int teamID = in.nextInt();
+					
+					jdbcConn.getStatment().executeUpdate("update Teams inner join Members on Teams.TeamID = Members.TeamID set Members.TeamID = " + teamID + " where Members.EmployeeID = " + employeeID + ";");
+					
+					System.out.println("\n");
+					results.close();
+					rsmd = null;
+					jdbcConn.getStatment().close();
+					jdbcConn.getConnection().close();
+					System.out.println("Update Successful");
+				}catch (SQLException sqlExcept) {
+					sqlExcept.printStackTrace();
+				}
+			}
+			System.out.println("\n1. No");
+			System.out.println("2. Yes");
+			System.out.print("More modifications? ");
+			int decision = in.nextInt();
+			if (decision == 1)
+				break;
+		}
+	}
+	
+	public void getModMenu() {
+		System.out.println("");
+		System.out.println("1. Name");
+		System.out.println("2. Role");
+		System.out.println("3. Team");
+	}
+	
+	public void getRoleMenu() {
+		System.out.println("");
+		System.out.println("1. Owner");
+		System.out.println("2. Employee");
+		System.out.println("3. Stakeholder");
 	}
 
 }
