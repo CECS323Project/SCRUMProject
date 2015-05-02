@@ -3,11 +3,20 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 
 public class Members 
 {
 	private Scanner scan = new Scanner(System.in);
+	private final JDialog diag = new JDialog();
 	private JDBCConnections jdbcConn = new JDBCConnections();
+	
+	Members()
+	{
+		diag.setAlwaysOnTop(true);
+	}
 	public void showAll(String memberType) 
 	{
 		if(memberType.toLowerCase() == "employees") {
@@ -26,7 +35,7 @@ public class Members
 			jdbcConn.setStatment(jdbcConn.getConnection());
 			ResultSet results;
 			try {
-				results = jdbcConn.getStatment().executeQuery("select EmployeeID,concat(lName,', ',fName) AS 'Last, First',Role,TeamName from Members natural join Teams natural join Roles;");
+				results = jdbcConn.getStatment().executeQuery("select EmployeeID AS 'Member ID',concat(lName,', ',fName) AS 'Last, First',Role,TeamName from Members natural join Teams natural join Roles;");
 			
 			ResultSetMetaData rsmd = results.getMetaData();
 			int cols = rsmd.getColumnCount();
@@ -177,15 +186,13 @@ public class Members
 	{
 		jdbcConn.setStatment(jdbcConn.getConnection());
 		ResultSet results;
-		System.out.println("Enter members first name:");
-		String fName = scan.nextLine();
-		System.out.println("Enter members last name:");
-		String lName = scan.nextLine();
-		System.out.println("Enter role option");
-		System.out.println("1. Employeee");
-		System.out.println("2. Owner");
-		System.out.println("3. Stakeholder");
-		int role = scan.nextInt();
+		//System.out.println("Enter members first name:");
+		String fName = JOptionPane.showInputDialog(diag,"Enter members first name:");
+		String lName = JOptionPane.showInputDialog(diag,"Enter members last name:");
+		int role = Integer.parseInt(JOptionPane.showInputDialog(diag,"Enter role option:\n"
+				+ "\t1. Employee"
+				+ "\n\t2. Owner"
+				+ "\n\t3. Stakeholder"));
 		if(role == 1){
 			try {
 				results = jdbcConn.getStatment().executeQuery("select TeamName, TeamID from Teams ;");
@@ -214,8 +221,7 @@ public class Members
 				e1.printStackTrace();
 			}
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			System.out.println("Enter team ID");
-			int teamID = scan.nextInt();
+			int teamID = Integer.parseInt(JOptionPane.showInputDialog(diag,"Enter team ID"));
 			try {
 				jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
 						+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
@@ -256,8 +262,7 @@ public class Members
 				e1.printStackTrace();
 			}
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			System.out.println("Enter team ID");
-			int teamID = scan.nextInt();
+			int teamID = Integer.parseInt(JOptionPane.showInputDialog(diag,"Enter team ID"));
 			try {
 				jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
 						+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
@@ -298,8 +303,7 @@ public class Members
 				e1.printStackTrace();
 			}
 			jdbcConn.setStatment(jdbcConn.getConnection());
-			System.out.println("Enter team ID");
-			int teamID = scan.nextInt();
+			int teamID = Integer.parseInt(JOptionPane.showInputDialog(diag,"Enter team ID"));
 			try {
 				jdbcConn.getStatment().executeUpdate("INSERT INTO Members ("
 						+ "FName,LName,RoleID,TeamID) VALUES ('"+fName+"','"+lName+"'"
@@ -314,10 +318,6 @@ public class Members
 		}
 	}
 
-	public void addStakeholder() 
-	{
-		//sql insert into stakeholders
-	}
 
 	public void modifyMembers() 
 	{
@@ -326,21 +326,18 @@ public class Members
 		Scanner in = new Scanner(System.in);
 		
 		getEmployees();
-		System.out.print("\nPlease choose an Employee ID: ");
-		int employeeID = in.nextInt();
+		int employeeID = Integer.parseInt(JOptionPane.showInputDialog(diag,"Please choose a Memebers ID:"));
 		
 		while(true) {
-			getModMenu();
-			System.out.print("What would you like to modify? ");
-			int modOption = in.nextInt();
+			int modOption = Integer.parseInt(JOptionPane.showInputDialog(diag,"What would you like to modify?"
+					+ "\n\t1. Name"
+					+ "\n\t2. Role"
+					+ "\n\t3.Team"));
 			
 			switch(modOption) {
 			case 1:
-				System.out.println("\nPlease insert new information:");
-				System.out.print("First name: ");
-				String newFirstName = in.next();
-				System.out.print("Last name: ");
-				String newLastName = in.next();
+				String newFirstName = JOptionPane.showInputDialog(diag,"First Name");
+				String newLastName = JOptionPane.showInputDialog(diag,"Last Name");
 				try {
 					jdbcConn.setStatment(jdbcConn.getConnection());
 					jdbcConn.getStatment().executeUpdate("update Members set FName = '" + newFirstName + "', LName = '" + newLastName + "' where Members.EmployeeID = " + employeeID + ";");
@@ -351,9 +348,10 @@ public class Members
 				}
 				break;
 			case 2:
-				getRoleMenu();
-				System.out.print("Please choose a new role: ");
-				int newRoleID = in.nextInt();
+				int newRoleID = Integer.parseInt(JOptionPane.showInputDialog(diag,"Please choose a new role"
+						+ "\n\t1. Employee"
+						+ "\n\t2. Owner"
+						+ "\n\t3. Stakeholder"));
 				try {
 					jdbcConn.setStatment(jdbcConn.getConnection());
 					jdbcConn.getStatment().executeUpdate("update Members set RoleID = " + newRoleID + " where Members.EmployeeID = " + employeeID + ";");
@@ -383,9 +381,7 @@ public class Members
 
 						System.out.format("%8s %8s\n",teamID,teamName);
 					}
-					
-					System.out.print("Please choose a new team: ");
-					int teamID = in.nextInt();
+					int teamID = Integer.parseInt(JOptionPane.showInputDialog(diag,"Please choose new team:"));
 					
 					jdbcConn.getStatment().executeUpdate("update Teams inner join Members on Teams.TeamID = Members.TeamID set Members.TeamID = " + teamID + " where Members.EmployeeID = " + employeeID + ";");
 					
@@ -399,27 +395,9 @@ public class Members
 					sqlExcept.printStackTrace();
 				}
 			}
-			System.out.println("\n1. No");
-			System.out.println("2. Yes");
-			System.out.print("More modifications? ");
-			int decision = in.nextInt();
+			int decision = Integer.parseInt(JOptionPane.showInputDialog(diag,"More modifications?\n\t1. No\n\t2. Yes"));
 			if (decision == 1)
 				break;
 		}
 	}
-	
-	public void getModMenu() {
-		System.out.println("");
-		System.out.println("1. Name");
-		System.out.println("2. Role");
-		System.out.println("3. Team");
-	}
-	
-	public void getRoleMenu() {
-		System.out.println("");
-		System.out.println("1. Owner");
-		System.out.println("2. Employee");
-		System.out.println("3. Stakeholder");
-	}
-
 }

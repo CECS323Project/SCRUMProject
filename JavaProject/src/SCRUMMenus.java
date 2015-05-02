@@ -241,11 +241,8 @@ public class SCRUMMenus
 		System.out.println("2. Show all stakeholders");
 		System.out.println("3. Show all employees assigned to a project");
 		System.out.println("4. Show all employees in a certain scrum team");
-		System.out.println("5. Add a new employee");
-		System.out.println("6. Modify an existing employee");
-		System.out.println("7. Add a stakeholder");
-		System.out.println("8. Modify a stakeholder");
+		System.out.println("5. Add a new member");
+		System.out.println("6. Modify an existing member");
 		System.out.println("9. Return to main menu");
 	}
-
 }
