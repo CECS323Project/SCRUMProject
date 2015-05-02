@@ -230,33 +230,40 @@ public class SCRUMMenus {
   public void membersMenuLoop() {
     int selection;
     boolean again = true;
-
-    while (again) {
-      this.displayMembers();
-      System.out.print("\n\tWhat would you like to do? ");
-      selection = userIn.nextInt();
-
-      switch (selection) {
+    
+    while(again)
+    {
+        this.displayMembers();
+        System.out.print("\n\tWhat would you like to do? ");
+        selection = userIn.nextInt();
+        
+        switch(selection)
+        {
         case 1:
-          members.getEmployees();
-          break;
+            members.showAll("employees");
+            break;
         case 2:
-          members.showAssignedEmployees();
-          break;
+            members.showAll("stakeholders");
+            break;
         case 3:
-          members.showScrumTeam();
-          break;
+            members.showAssignedEmployees();
+            break;
         case 4:
-          members.addEmployee();
-          break;
+            members.showScrumTeam();
+            break;
         case 5:
-          members.modifyMembers();
-          break;
+            members.addEmployee();
+            break;
         case 6:
-          again = false;
-          break;
-      }
-
+            members.modifyMembers();
+            break;
+        case 7:
+            again = false;
+            break;
+        default:
+            again = false;
+            break;
+        }
     }
   }
 
@@ -293,12 +300,13 @@ public class SCRUMMenus {
 
   public void displayMembers() {
     System.out.println("Staff\n");
-    System.out.println("1. Show all Members");
-    System.out.println("2. Show all Employees assigned to a project");
-    System.out.println("3. Show all Employees in a certain scrum team");
-    System.out.println("4. Add a new Member");
-    System.out.println("5. Modify a Member");
-    System.out.println("6. Return to Main Menu");
+    System.out.println("1. Show all Employees");
+    System.out.println("2. Show all Stakeholders");
+    System.out.println("3. Show all employees assigned to a project");
+    System.out.println("4. Show all employees in a certain scrum team");
+    System.out.println("5. Add a new member");
+    System.out.println("6. Modify an existing member");
+    System.out.println("7. Return to main menu");
   }
 
 }
